@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitas y Entradas - Catacumbas del Beaterio | Cádiz</title>
+    <meta name="description" content="Reserva tu visita guiada o libre a las Catacumbas del Beaterio en Cádiz. Consulta horarios, tarifas y disponibilidad.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header / Navegación -->
+    <header class="header header-solid" id="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">Catacumbas</span>
+                <span class="logo-subtext">del Beaterio</span>
+            </a>
+            <nav class="nav" id="nav">
+                <ul class="nav-list">
+                    <li><a href="historia.html">Historia</a></li>
+                    <li><a href="visitas.html" class="active">Visitas</a></li>
+                    <li><a href="https://triocio.com" target="_blank" rel="noopener noreferrer">Eventos</a></li>
+                    <li><a href="galeria.html">Galeria</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+            <a href="visitas.html" class="btn btn-primary header-cta">Reservar Visita</a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-bg">
+            <!-- IMAGEN: Hero de la página visitas (1920x600 recomendado) -->
+            <div class="hero-image-placeholder">
+                <span>Imagen Hero Visitas</span>
+                <small>1920 x 600 px</small>
+            </div>
+        </div>
+        <div class="page-hero-overlay"></div>
+        <div class="page-hero-content">
+            <span class="page-hero-tag">Planifica tu Experiencia</span>
+            <h1 class="page-hero-title">Visitas y Entradas</h1>
+            <p class="page-hero-description">Elige la experiencia que mejor se adapte a ti</p>
+        </div>
+    </section>
+
+    <!-- Aviso Importante -->
+    <section class="notice">
+        <div class="container">
+            <div class="notice-content">
+                <div class="notice-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                </div>
+                <div class="notice-text">
+                    <p><strong>Importante:</strong> Si no recibe sus entradas, revise la carpeta de correo no deseado (SPAM). Para visitas guiadas se requiere un mínimo de 3 personas. Si no se alcanza el mínimo, se le devolverá el importe o se le ofrecerá cambio de día.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tipos de Visita -->
+    <section class="visits-page">
+        <div class="container">
+            <div class="visits-intro">
+                <h2>Elige tu Experiencia</h2>
+                <p>Ofrecemos dos modalidades de visita para que explores las catacumbas de la manera que prefieras. Ya sea con la guía de nuestros expertos o a tu propio ritmo, vivirás una experiencia única.</p>
+            </div>
+
+            <div class="visits-cards">
+                <!-- Visita Guiada -->
+                <div class="visit-card-full visit-card-featured">
+                    <div class="visit-card-full-image">
+                        <!-- IMAGEN: Foto visita guiada (700x500 recomendado) -->
+                        <div class="image-placeholder">
+                            <span>Imagen Visita Guiada</span>
+                            <small>700 x 500 px</small>
+                        </div>
+                        <div class="visit-badge">Recomendado</div>
+                    </div>
+                    <div class="visit-card-full-content">
+                        <h3>Visita Guiada</h3>
+                        <p class="visit-description">Sumérgete en la historia de las catacumbas de la mano de nuestros guías expertos. Descubre todos los secretos, leyendas y detalles que solo un conocedor puede revelarte.</p>
+                        
+                        <div class="visit-details-grid">
+                            <div class="visit-detail">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                <div>
+                                    <strong>Duración</strong>
+                                    <span>30-45 minutos</span>
+                                </div>
+                            </div>
+                            <div class="visit-detail">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                <div>
+                                    <strong>Grupo</strong>
+                                    <span>Mínimo 3 personas</span>
+                                </div>
+                            </div>
+                            <div class="visit-detail">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                                <div>
+                                    <strong>Idiomas</strong>
+                                    <span>Español e Inglés</span>
+                                </div>
+                            </div>
+                            <div class="visit-detail">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                <div>
+                                    <strong>Horarios</strong>
+                                    <span>13:00 y 19:00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="visit-pricing-full">
+                            <h4>Tarifas</h4>
+                            <div class="pricing-table">
+                                <div class="pricing-row">
+                                    <span>Adultos</span>
+                                    <span class="price">5€</span>
+                                </div>
+                                <div class="pricing-row">
+                                    <span>Niños (6-12 años)</span>
+                                    <span class="price">3€</span>
+                                </div>
+                                <div class="pricing-row">
+                                    <span>Niños (0-5 años)</span>
+                                    <span class="price">Gratis</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="visit-actions">
+                            <a href="#" class="btn btn-primary btn-lg">Comprar Entrada Guiada</a>
+                            <a href="#" class="btn btn-outline">Ver Disponibilidad</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visita Libre -->
+                <div class="visit-card-full">
+                    <div class="visit-card-full-image">
+                        <!-- IMAGEN: Foto visita libre (700x500 recomendado) -->
+                        <div class="image-placeholder">
+                            <span>Imagen Visita Libre</span>
+                            <small>700 x 500 px</small>
+                        </div>
+                    </div>
+                    <div class="visit-card-full-content">
+                        <h3>Visita Libre</h3>
+                        <p class="visit-description">Explora las catacumbas a tu propio ritmo, sin prisas. Ideal para quienes prefieren descubrir los espacios con tranquilidad y tomar su tiempo para observar cada detalle.</p>
+                        
+                        <div class="visit-details-grid">
+                            <div class="visit-detail">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                <div>
+                                    <strong>Duración</strong>
+                                    <span>A tu ritmo</span>
+                                </div>
+                            </div>
+                            <div class="visit-detail">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                <div>
+                                    <strong>Tipo</strong>
+                                    <span>Individual o pareja</span>
+                                </div>
+                            </div>
+                            <div class="visit-detail">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                <div>
+                                    <strong>Reserva</strong>
+                                    <span>No necesaria</span>
+                                </div>
+                            </div>
+                            <div class="visit-detail">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                <div>
+                                    <strong>Horario</strong>
+                                    <span>Durante apertura</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="visit-pricing-full">
+                            <h4>Tarifas</h4>
+                            <div class="pricing-table">
+                                <div class="pricing-row">
+                                    <span>Adultos y Niños (+5 años)</span>
+                                    <span class="price">3€</span>
+                                </div>
+                                <div class="pricing-row">
+                                    <span>Niños (0-5 años)</span>
+                                    <span class="price">Gratis</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="visit-actions">
+                            <a href="#" class="btn btn-secondary btn-lg">Comprar Entrada Libre</a>
+                            <a href="#" class="btn btn-outline">Ver Disponibilidad</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Horarios -->
+    <section class="schedule-section">
+        <div class="container">
+            <div class="schedule-header">
+                <h2>Horarios de Apertura</h2>
+                <p>Los horarios pueden verse modificados. Consulta el calendario de reservas para confirmar disponibilidad.</p>
+            </div>
+            <div class="schedule-cards">
+                <div class="schedule-card">
+                    <div class="schedule-card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    </div>
+                    <h3>Mañanas</h3>
+                    <p class="schedule-days">Martes a Sábado</p>
+                    <p class="schedule-hours">10:30 - 14:00</p>
+                </div>
+                <div class="schedule-card">
+                    <div class="schedule-card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                    </div>
+                    <h3>Tardes</h3>
+                    <p class="schedule-days">Jueves a Sábado</p>
+                    <p class="schedule-hours">17:00 - 20:00</p>
+                </div>
+                <div class="schedule-card schedule-card-highlight">
+                    <div class="schedule-card-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3>Visitas Guiadas</h3>
+                    <p class="schedule-days">Bajo reserva</p>
+                    <p class="schedule-hours">13:00 y 19:00</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Punto de Encuentro -->
+    <section class="meeting-point">
+        <div class="container">
+            <div class="meeting-grid">
+                <div class="meeting-content">
+                    <span class="section-tag">Ubicación</span>
+                    <h2>Punto de Encuentro</h2>
+                    <p>El punto de encuentro donde el guía recogerá al grupo será en las propias Catacumbas del Beaterio.</p>
+                    <div class="meeting-address">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <div>
+                            <strong>Catacumbas del Beaterio</strong>
+                            <span>C/ Valverde nº3, Cádiz</span>
+                        </div>
+                    </div>
+                    <p class="meeting-note">Te recomendamos llegar 5-10 minutos antes de la hora de tu visita guiada.</p>
+                </div>
+                <div class="meeting-map">
+                    <!-- IMAGEN: Mapa de ubicación o foto exterior (600x400 recomendado) -->
+                    <div class="image-placeholder">
+                        <span>Mapa / Ubicación</span>
+                        <small>600 x 400 px</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Puntos de Venta -->
+    <section class="sales-section">
+        <div class="container">
+            <div class="sales-header">
+                <h2>Puntos de Venta</h2>
+                <p>Puedes comprar tu entrada online o en nuestros puntos físicos oficiales</p>
+            </div>
+            <div class="sales-options">
+                <div class="sales-option">
+                    <div class="sales-option-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    </div>
+                    <h3>Venta Online</h3>
+                    <p>Compra tus entradas desde cualquier lugar y recíbelas directamente en tu email.</p>
+                    <ul class="sales-benefits">
+                        <li>Confirmación inmediata</li>
+                        <li>Pago seguro</li>
+                        <li>Entrada digital</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">Comprar Online</a>
+                </div>
+                <div class="sales-option">
+                    <div class="sales-option-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    </div>
+                    <h3>Punto Físico</h3>
+                    <p>Visita nuestro punto de venta oficial para pago en efectivo o tarjeta.</p>
+                    <div class="sales-location">
+                        <strong>Zonachip Mobility</strong>
+                        <span>Avd. Cayetano del Toro nº16 (local)</span>
+                    </div>
+                    <a href="https://maps.google.com" target="_blank" class="btn btn-outline">Ver en Mapa</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grupos -->
+    <section class="groups-section">
+        <div class="container">
+            <div class="groups-content">
+                <h2>Reservas para Grupos</h2>
+                <p>Para grupos grandes o reservas especiales, contacta directamente con nosotros para concertar día y hora.</p>
+                <div class="groups-contact">
+                    <a href="tel:722415979" class="btn btn-primary btn-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        722 41 59 79
+                    </a>
+                    <a href="mailto:info@catacumbasdelbeaterio.com" class="btn btn-outline btn-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        Enviar Email
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <span class="logo-text">Catacumbas</span>
+                        <span class="logo-subtext">del Beaterio</span>
+                    </a>
+                    <p>Sumérgete en el corazón de Cádiz y explora el lado oculto del subsuelo de la ciudad más antigua de Occidente.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Navegación</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="historia.html">Historia</a></li>
+                        <li><a href="visitas.html">Visitas</a></li>
+                        <li><a href="galeria.html">Galería</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            C/ Valverde nº3, Cádiz
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            722 41 59 79
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            info@catacumbasdelbeaterio.com
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-hours">
+                    <h4>Horarios</h4>
+                    <ul>
+                        <li><strong>Mañanas:</strong> Mar-Sáb 10:30-14:00</li>
+                        <li><strong>Tardes:</strong> Jue-Sáb 17:00-20:00</li>
+                        <li><strong>Visitas Guiadas:</strong> 13:00 y 19:00</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Catacumbas del Beaterio. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Eventos y entradas para las Catacumbas del Beaterio de Cádiz. Reserva tu visita guiada o libre.">
+    <title>Eventos y Entradas | Catacumbas del Beaterio</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        /* Estilos específicos para la página de eventos */
+        .events-page {
+            padding: var(--spacing-2xl) 0;
+            background-color: var(--color-dark);
+            min-height: 100vh;
+        }
+        
+        .events-intro {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto var(--spacing-xl);
+        }
+        
+        .events-intro h2 {
+            color: var(--color-light);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .events-intro p {
+            color: var(--color-gray-light);
+        }
+        
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            background-color: var(--color-dark-soft);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            min-height: 800px;
+        }
+        
+        .iframe-loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--color-dark-soft);
+            z-index: 1;
+            transition: opacity 0.3s ease;
+        }
+        
+        .iframe-loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .iframe-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--color-gray-dark);
+            border-top-color: var(--color-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: var(--spacing-md);
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .iframe-loading p {
+            color: var(--color-gray-light);
+        }
+        
+        .events-iframe {
+            width: 100%;
+            min-height: 800px;
+            border: none;
+            display: block;
+        }
+        
+        .iframe-error {
+            display: none;
+            text-align: center;
+            padding: var(--spacing-3xl);
+        }
+        
+        .iframe-error.active {
+            display: block;
+        }
+        
+        .iframe-error-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(201, 169, 98, 0.1);
+            border-radius: 50%;
+        }
+        
+        .iframe-error-icon svg {
+            color: var(--color-primary);
+        }
+        
+        .iframe-error h3 {
+            color: var(--color-light);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .iframe-error p {
+            color: var(--color-gray-light);
+            margin-bottom: var(--spacing-lg);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .iframe-error .btn {
+            margin: 0 var(--spacing-xs);
+        }
+        
+        .events-note {
+            text-align: center;
+            padding: var(--spacing-lg);
+            background-color: var(--color-dark-soft);
+            border-radius: var(--border-radius-lg);
+            margin-top: var(--spacing-lg);
+        }
+        
+        .events-note p {
+            color: var(--color-gray-light);
+            font-size: 0.875rem;
+            margin: 0;
+        }
+        
+        .events-note a {
+            color: var(--color-primary);
+        }
+        
+        .events-note a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Alternativa: Cards de eventos si el iframe no funciona */
+        .events-fallback {
+            display: none;
+        }
+        
+        .events-fallback.active {
+            display: block;
+        }
+        
+        .events-grid {
+            display: grid;
+            gap: var(--spacing-lg);
+        }
+        
+        .event-card {
+            display: grid;
+            background-color: var(--color-dark-soft);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .event-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .event-card-content {
+            padding: var(--spacing-lg);
+        }
+        
+        .event-date {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: var(--color-primary);
+            color: var(--color-dark);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing-md);
+            min-width: 70px;
+        }
+        
+        .event-date-day {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+        
+        .event-date-month {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        
+        .event-card h3 {
+            color: var(--color-light);
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .event-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .event-meta-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            color: var(--color-gray-light);
+            font-size: 0.875rem;
+        }
+        
+        .event-meta-item svg {
+            color: var(--color-primary);
+            width: 16px;
+            height: 16px;
+        }
+        
+        .event-price {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        @media (min-width: 768px) {
+            .events-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .events-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header header-solid" id="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">Catacumbas</span>
+                <span class="logo-subtext">del Beaterio</span>
+            </a>
+            <nav class="nav" id="nav">
+                <ul class="nav-list">
+                    <li><a href="historia.html">Historia</a></li>
+                    <li><a href="visitas.html">Visitas</a></li>
+                    <li><a href="eventos.html" class="active">Eventos</a></li>
+                    <li><a href="galeria.html">Galeria</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+            <a href="visitas.html" class="btn btn-primary header-cta">Reservar Visita</a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero page-hero-short">
+        <div class="page-hero-bg">
+            <div class="hero-image-placeholder">
+                <span>Imagen de fondo - 1920 x 600 px</span>
+            </div>
+        </div>
+        <div class="page-hero-overlay"></div>
+        <div class="page-hero-content">
+            <span class="page-hero-tag">Reserva tu experiencia</span>
+            <h1 class="page-hero-title">Eventos y Entradas</h1>
+            <p class="page-hero-description">Consulta las fechas disponibles y reserva tu visita a las Catacumbas del Beaterio</p>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="events-page">
+        <div class="container">
+            <div class="events-intro">
+                <h2>Calendario de Visitas</h2>
+                <p>Selecciona la fecha y tipo de visita que prefieras. Las entradas se gestionan a traves de nuestra plataforma de venta triocio.com</p>
+            </div>
+            
+            <!-- Iframe Container -->
+            <div class="iframe-container" id="iframeContainer">
+                <div class="iframe-loading" id="iframeLoading">
+                    <div class="iframe-spinner"></div>
+                    <p>Cargando eventos...</p>
+                </div>
+                
+                <iframe 
+                    id="eventsIframe"
+                    class="events-iframe" 
+                    src="https://triocio.com/catacumbas-del-beaterio/"
+                    title="Eventos Catacumbas del Beaterio"
+                    loading="lazy"
+                    onload="iframeLoaded()"
+                    onerror="iframeError()">
+                </iframe>
+                
+                <!-- Error message if iframe blocked -->
+                <div class="iframe-error" id="iframeError">
+                    <div class="iframe-error-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                    </div>
+                    <h3>No se puede cargar el contenido</h3>
+                    <p>Por razones de seguridad, el contenido de triocio.com no puede mostrarse directamente en esta pagina. Puedes acceder a los eventos haciendo clic en el boton de abajo.</p>
+                    <a href="https://triocio.com/catacumbas-del-beaterio/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                        Ver Eventos en Triocio
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="events-note">
+                <p>Las entradas se venden a traves de <a href="https://triocio.com/catacumbas-del-beaterio/" target="_blank" rel="noopener noreferrer">triocio.com</a>. Si tienes problemas para visualizar el calendario, <a href="https://triocio.com/catacumbas-del-beaterio/" target="_blank" rel="noopener noreferrer">haz clic aqui para acceder directamente</a>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section-compact">
+        <div class="container">
+            <div class="cta-inline">
+                <div class="cta-inline-text">
+                    <h2>Tienes dudas sobre tu visita?</h2>
+                    <p>Contacta con nosotros y te ayudaremos a planificar tu experiencia</p>
+                </div>
+                <a href="contacto.html" class="btn btn-primary">Contactar</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <span class="logo-text">Catacumbas</span>
+                        <span class="logo-subtext">del Beaterio</span>
+                    </a>
+                    <p>Un viaje al corazon historico de Cadiz. Descubre los secretos que guardan nuestros muros desde el siglo XVII.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Twitter">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Explorar</h4>
+                    <ul>
+                        <li><a href="historia.html">Historia</a></li>
+                        <li><a href="visitas.html">Visitas</a></li>
+                        <li><a href="eventos.html">Eventos</a></li>
+                        <li><a href="galeria.html">Galeria</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Informacion</h4>
+                    <ul>
+                        <li><a href="visitas.html">Horarios</a></li>
+                        <li><a href="visitas.html">Tarifas</a></li>
+                        <li><a href="contacto.html">Como llegar</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Contacto</h4>
+                    <p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        Calle Valverde, 3, Cadiz
+                    </p>
+                    <p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        +34 XXX XXX XXX
+                    </p>
+                    <p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        info@catacumbasdelbeaterio.com
+                    </p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Catacumbas del Beaterio. Todos los derechos reservados.</p>
+                <div class="footer-legal">
+                    <a href="#">Aviso Legal</a>
+                    <a href="#">Politica de Privacidad</a>
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Iframe load handling
+        let iframeLoadTimeout;
+        
+        function iframeLoaded() {
+            const loading = document.getElementById('iframeLoading');
+            if (loading) {
+                loading.classList.add('hidden');
+            }
+            clearTimeout(iframeLoadTimeout);
+        }
+        
+        function iframeError() {
+            showIframeError();
+        }
+        
+        function showIframeError() {
+            const loading = document.getElementById('iframeLoading');
+            const error = document.getElementById('iframeError');
+            const iframe = document.getElementById('eventsIframe');
+            
+            if (loading) loading.classList.add('hidden');
+            if (iframe) iframe.style.display = 'none';
+            if (error) error.classList.add('active');
+        }
+        
+        // Check if iframe loaded after timeout (fallback for X-Frame-Options block)
+        iframeLoadTimeout = setTimeout(function() {
+            const iframe = document.getElementById('eventsIframe');
+            const loading = document.getElementById('iframeLoading');
+            
+            // If still showing loading after 8 seconds, assume blocked
+            if (loading && !loading.classList.contains('hidden')) {
+                showIframeError();
+            }
+        }, 8000);
+        
+        // Try to detect if iframe is blocked (this may not work due to CORS)
+        const iframe = document.getElementById('eventsIframe');
+        if (iframe) {
+            iframe.addEventListener('load', function() {
+                try {
+                    // This will throw if blocked by X-Frame-Options
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    iframeLoaded();
+                } catch (e) {
+                    // Iframe is blocked
+                    showIframeError();
+                }
+            });
+        }
+    </script>
+</body>
+</html>

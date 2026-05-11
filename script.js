@@ -137,6 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Contact Form Handler
     // ========================================
     const contactForm = document.getElementById('contactForm');
+    const formSuccess = document.getElementById('formSuccess');
     
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
@@ -145,20 +146,27 @@ document.addEventListener('DOMContentLoaded', function() {
             // Get form data
             const formData = new FormData(contactForm);
             const data = {
-                name: formData.get('name'),
+                nombre: formData.get('nombre'),
+                apellidos: formData.get('apellidos'),
                 email: formData.get('email'),
-                phone: formData.get('phone'),
-                message: formData.get('message')
+                telefono: formData.get('telefono'),
+                asunto: formData.get('asunto'),
+                mensaje: formData.get('mensaje')
             };
             
             // Here you would typically send the data to a server
             console.log('Form submitted:', data);
             
-            // Show success message (you can customize this)
-            alert('¡Gracias por tu mensaje! Te responderemos lo antes posible.');
+            // Hide form and show success message
+            contactForm.style.display = 'none';
+            if (formSuccess) {
+                formSuccess.classList.add('active');
+            }
             
-            // Reset form
-            contactForm.reset();
+            // Reset form after a delay
+            setTimeout(() => {
+                contactForm.reset();
+            }, 1000);
         });
     }
 
@@ -196,15 +204,125 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ========================================
-    // Gallery Lightbox (Basic Implementation)
+    // Gallery Filter (for Gallery Page)
     // ========================================
-    const galleryItems = document.querySelectorAll('.gallery-item');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const galleryMasonryItems = document.querySelectorAll('.gallery-masonry-item');
     
-    galleryItems.forEach(item => {
-        item.addEventListener('click', function() {
-            // For future implementation: Open lightbox with full-size image
-            console.log('Galería: Implementar lightbox aquí cuando se añadan las imágenes');
+    if (filterBtns.length > 0) {
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                const filter = this.getAttribute('data-filter');
+                
+                galleryMasonryItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, 50);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.8)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
         });
+    }
+
+    // ========================================
+    // Gallery Lightbox
+    // ========================================
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    const lightboxClose = document.querySelector('.lightbox-close');
+    const lightboxPrev = document.querySelector('.lightbox-prev');
+    const lightboxNext = document.querySelector('.lightbox-next');
+    const galleryWrappers = document.querySelectorAll('.gallery-image-wrapper');
+    
+    let currentImageIndex = 0;
+    const galleryImages = [];
+    
+    // Collect all gallery images
+    galleryWrappers.forEach((wrapper, index) => {
+        const caption = wrapper.querySelector('.gallery-caption');
+        galleryImages.push({
+            index: index,
+            caption: caption ? caption.textContent : ''
+        });
+        
+        wrapper.addEventListener('click', function() {
+            if (lightbox) {
+                currentImageIndex = index;
+                // When real images are added, update src here
+                // lightboxImage.src = wrapper.querySelector('img').src;
+                if (lightboxCaption) {
+                    lightboxCaption.textContent = galleryImages[index].caption;
+                }
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    });
+    
+    // Close lightbox
+    if (lightboxClose) {
+        lightboxClose.addEventListener('click', function() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    }
+    
+    // Close on background click
+    if (lightbox) {
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+    
+    // Navigation
+    if (lightboxPrev) {
+        lightboxPrev.addEventListener('click', function() {
+            currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+            if (lightboxCaption) {
+                lightboxCaption.textContent = galleryImages[currentImageIndex].caption;
+            }
+        });
+    }
+    
+    if (lightboxNext) {
+        lightboxNext.addEventListener('click', function() {
+            currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+            if (lightboxCaption) {
+                lightboxCaption.textContent = galleryImages[currentImageIndex].caption;
+            }
+        });
+    }
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (lightbox && lightbox.classList.contains('active')) {
+            if (e.key === 'Escape') {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            } else if (e.key === 'ArrowLeft' && lightboxPrev) {
+                lightboxPrev.click();
+            } else if (e.key === 'ArrowRight' && lightboxNext) {
+                lightboxNext.click();
+            }
+        }
     });
 
     // ========================================
