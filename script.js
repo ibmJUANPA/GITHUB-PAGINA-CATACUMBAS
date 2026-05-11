@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // ========================================
     // Image Placeholder Click Handler
     // ========================================
-    const imagePlaceholders = document.querySelectorAll('.image-placeholder, .hero-image-placeholder');
+    const imagePlaceholders = document.querySelectorAll('.image-placeholder:not(.image-placeholder-photo), .hero-image-placeholder:not(.hero-image-real)');
     
     imagePlaceholders.forEach(placeholder => {
         placeholder.style.cursor = 'pointer';
@@ -251,23 +251,34 @@ document.addEventListener('DOMContentLoaded', function() {
     
     let currentImageIndex = 0;
     const galleryImages = [];
+
+    function updateLightboxImage(index) {
+        const imageData = galleryImages[index];
+        if (!imageData || !lightboxImage) return;
+
+        lightboxImage.src = imageData.src || '';
+        lightboxImage.alt = imageData.alt || imageData.caption || '';
+
+        if (lightboxCaption) {
+            lightboxCaption.textContent = imageData.caption;
+        }
+    }
     
     // Collect all gallery images
     galleryWrappers.forEach((wrapper, index) => {
         const caption = wrapper.querySelector('.gallery-caption');
+        const image = wrapper.querySelector('img');
         galleryImages.push({
             index: index,
-            caption: caption ? caption.textContent : ''
+            caption: caption ? caption.textContent : '',
+            src: image ? image.src : '',
+            alt: image ? image.alt : ''
         });
         
         wrapper.addEventListener('click', function() {
             if (lightbox) {
                 currentImageIndex = index;
-                // When real images are added, update src here
-                // lightboxImage.src = wrapper.querySelector('img').src;
-                if (lightboxCaption) {
-                    lightboxCaption.textContent = galleryImages[index].caption;
-                }
+                updateLightboxImage(currentImageIndex);
                 lightbox.classList.add('active');
                 document.body.style.overflow = 'hidden';
             }
@@ -296,18 +307,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (lightboxPrev) {
         lightboxPrev.addEventListener('click', function() {
             currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
-            if (lightboxCaption) {
-                lightboxCaption.textContent = galleryImages[currentImageIndex].caption;
-            }
+            updateLightboxImage(currentImageIndex);
         });
     }
     
     if (lightboxNext) {
         lightboxNext.addEventListener('click', function() {
             currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
-            if (lightboxCaption) {
-                lightboxCaption.textContent = galleryImages[currentImageIndex].caption;
-            }
+            updateLightboxImage(currentImageIndex);
         });
     }
     
