@@ -339,6 +339,249 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.classList.add('loaded');
     });
 
+    // ========================================
+    // Events Carousel
+    // ========================================
+    const eventsApp = document.getElementById('eventsCarouselApp');
+
+    if (eventsApp) {
+        const endpoint = eventsApp.getAttribute('data-events-endpoint') || '/api/events';
+        const localEventFallbackImage = 'img/1624829075563-1536x1149.jpg';
+        const stage = document.getElementById('eventsCarouselStage');
+        const state = document.getElementById('eventsCarouselState');
+        const track = document.getElementById('eventsCarouselTrack');
+        const controls = document.getElementById('eventsCarouselControls');
+        const dots = document.getElementById('eventsCarouselDots');
+        const status = document.getElementById('eventsCarouselStatus');
+        const prevButton = document.getElementById('eventsPrev');
+        const nextButton = document.getElementById('eventsNext');
+
+        let currentIndex = 0;
+        let events = [];
+        let autoplayId = null;
+
+        const formatDate = (value) => {
+            if (!value) {
+                return 'Fecha pendiente de confirmar';
+            }
+
+            try {
+                return new Intl.DateTimeFormat('es-ES', {
+                    dateStyle: 'full',
+                    timeStyle: 'short'
+                }).format(new Date(value));
+            } catch (error) {
+                return value;
+            }
+        };
+
+        const formatUpdatedAt = (value) => {
+            if (!value) {
+                return 'Sin sincronizacion previa';
+            }
+
+            try {
+                return new Intl.DateTimeFormat('es-ES', {
+                    dateStyle: 'medium',
+                    timeStyle: 'short'
+                }).format(new Date(value));
+            } catch (error) {
+                return value;
+            }
+        };
+
+        const formatPrice = (value) => {
+            if (!value) {
+                return '';
+            }
+
+            const amount = value.replace(/[^\d.,]/g, '');
+            return amount ? `${amount}€` : value;
+        };
+
+        const fallbackImage = (title) => `
+            <div class="events-carousel-placeholder">
+                <span>${title}</span>
+            </div>
+        `;
+
+        const buildSlide = (event) => {
+            const visual = event.image
+                ? `<img src="${event.image}" alt="${event.title}" loading="lazy" onerror="this.onerror=null;this.src='${localEventFallbackImage}'">`
+                : fallbackImage(event.title);
+
+            const price = event.price
+                ? `<span class="events-carousel-price">${formatPrice(event.price)}</span>`
+                : '';
+
+            return `
+                <article class="events-carousel-slide">
+                    <div class="events-carousel-card">
+                        <div class="events-carousel-visual">
+                            ${visual}
+                        </div>
+                        <div class="events-carousel-content">
+                            <div class="events-carousel-meta">
+                                <span class="events-carousel-pill">${formatDate(event.startsAt)}</span>
+                                <span class="events-carousel-pill">${event.location || 'Cadiz'}</span>
+                            </div>
+                            <h3>${event.title}</h3>
+                            <p>Reserva este evento en Triocio. La informacion de esta tarjeta se sincroniza periodicamente para reflejar cambios recientes.</p>
+                            ${price}
+                            <div class="events-carousel-actions">
+                                <a href="${event.url}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Reservar en Triocio</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            `;
+        };
+
+        const updateControls = () => {
+            if (!dots) {
+                return;
+            }
+
+            Array.from(dots.children).forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+
+            if (prevButton) {
+                prevButton.disabled = events.length <= 1;
+            }
+
+            if (nextButton) {
+                nextButton.disabled = events.length <= 1;
+            }
+        };
+
+        const goToSlide = (index) => {
+            if (!track || events.length === 0) {
+                return;
+            }
+
+            currentIndex = (index + events.length) % events.length;
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+            updateControls();
+        };
+
+        const startAutoplay = () => {
+            if (events.length <= 1) {
+                return;
+            }
+
+            clearInterval(autoplayId);
+            autoplayId = window.setInterval(() => {
+                goToSlide(currentIndex + 1);
+            }, 6000);
+        };
+
+        const stopAutoplay = () => {
+            clearInterval(autoplayId);
+        };
+
+        const renderState = (message) => {
+            if (state) {
+                state.hidden = false;
+                state.innerHTML = `<p>${message}</p>`;
+            }
+
+            if (track) {
+                track.hidden = true;
+            }
+
+            if (controls) {
+                controls.hidden = true;
+            }
+        };
+
+        const renderCarousel = (payload) => {
+            events = Array.isArray(payload.events) ? payload.events : [];
+
+            if (events.length === 0) {
+                renderState('Ahora mismo no hay eventos listados. Puedes comprobar Triocio directamente para nuevas publicaciones.');
+                if (status) {
+                    status.textContent = 'No hay eventos disponibles en la ultima sincronizacion.';
+                }
+                return;
+            }
+
+            if (track) {
+                track.innerHTML = events.map(buildSlide).join('');
+                track.hidden = false;
+            }
+
+            if (state) {
+                state.hidden = true;
+            }
+
+            if (dots) {
+                dots.innerHTML = events
+                    .map((_, index) => `<button type="button" class="events-carousel-dot${index === 0 ? ' active' : ''}" aria-label="Ir al evento ${index + 1}" data-index="${index}"></button>`)
+                    .join('');
+
+                Array.from(dots.children).forEach((dot) => {
+                    dot.addEventListener('click', () => {
+                        goToSlide(Number(dot.getAttribute('data-index')));
+                        startAutoplay();
+                    });
+                });
+            }
+
+            if (controls) {
+                controls.hidden = false;
+            }
+
+            if (status) {
+                status.textContent = `Ultima sincronizacion: ${formatUpdatedAt(payload.updatedAt)}. Fuente: Triocio.`;
+            }
+
+            currentIndex = 0;
+            goToSlide(0);
+            startAutoplay();
+        };
+
+        const loadEvents = async () => {
+            renderState('Cargando eventos desde Triocio...');
+
+            try {
+                const response = await fetch(endpoint, { cache: 'no-store' });
+                if (!response.ok) {
+                    throw new Error('No se pudo obtener el feed de eventos.');
+                }
+
+                const payload = await response.json();
+                renderCarousel(payload);
+            } catch (error) {
+                renderState('No hemos podido cargar el carrusel ahora mismo. Puedes abrir Triocio directamente mientras reintentamos.');
+                if (status) {
+                    status.textContent = 'Error al consultar los eventos sincronizados.';
+                }
+            }
+        };
+
+        if (prevButton) {
+            prevButton.addEventListener('click', () => {
+                goToSlide(currentIndex - 1);
+                startAutoplay();
+            });
+        }
+
+        if (nextButton) {
+            nextButton.addEventListener('click', () => {
+                goToSlide(currentIndex + 1);
+                startAutoplay();
+            });
+        }
+
+        if (stage) {
+            stage.addEventListener('mouseenter', stopAutoplay);
+            stage.addEventListener('mouseleave', startAutoplay);
+        }
+
+        loadEvents();
+    }
+
 });
 
 // ========================================

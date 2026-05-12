@@ -37,100 +37,247 @@
             color: var(--color-gray-light);
         }
         
-        .iframe-container {
-            position: relative;
-            width: 100%;
-            background-color: var(--color-dark-soft);
-            border-radius: var(--border-radius-lg);
-            overflow: hidden;
-            min-height: 800px;
+        .events-carousel-shell {
+            background: linear-gradient(180deg, rgba(26, 26, 26, 0.95) 0%, rgba(13, 13, 13, 0.95) 100%);
+            border: 1px solid rgba(201, 169, 98, 0.18);
+            border-radius: 24px;
+            padding: clamp(1.25rem, 3vw, 2rem);
+            box-shadow: var(--shadow-lg);
         }
-        
-        .iframe-loading {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+
+        .events-carousel-header {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .events-carousel-header p {
+            color: var(--color-gray-light);
+            margin: 0;
+        }
+
+        .events-live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: fit-content;
+            padding: 0.5rem 0.875rem;
+            border-radius: 999px;
+            background-color: rgba(201, 169, 98, 0.14);
+            color: var(--color-primary-light);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .events-live-badge::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #63d471;
+            box-shadow: 0 0 0 6px rgba(99, 212, 113, 0.15);
+        }
+
+        .events-carousel-stage {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            min-height: 440px;
+        }
+
+        .events-carousel-track {
+            display: flex;
+            transition: transform 0.45s ease;
+            will-change: transform;
+        }
+
+        .events-carousel-slide {
+            min-width: 100%;
+            padding: 0.25rem;
+        }
+
+        .events-carousel-card {
+            display: grid;
+            background-color: var(--color-dark-soft);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            min-height: 100%;
+        }
+
+        .events-carousel-visual {
+            min-height: 240px;
+            background: radial-gradient(circle at top, rgba(201, 169, 98, 0.16), transparent 55%), var(--color-gray-dark);
+        }
+
+        .events-carousel-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .events-carousel-placeholder {
+            width: 100%;
+            height: 100%;
+            min-height: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-lg);
+            text-align: center;
+            color: var(--color-primary-light);
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(201, 169, 98, 0.22), transparent 28%),
+                radial-gradient(circle at 80% 30%, rgba(223, 200, 138, 0.14), transparent 22%),
+                linear-gradient(135deg, rgba(201, 169, 98, 0.12), rgba(13, 13, 13, 0.9));
+        }
+
+        .events-carousel-content {
+            padding: clamp(1.25rem, 3vw, 2rem);
+        }
+
+        .events-carousel-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .events-carousel-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0.875rem;
+            border-radius: 999px;
+            background-color: rgba(245, 243, 239, 0.06);
+            color: var(--color-gray-light);
+            font-size: 0.8rem;
+        }
+
+        .events-carousel-card h3 {
+            color: var(--color-light);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .events-carousel-card p {
+            color: var(--color-gray-light);
+        }
+
+        .events-carousel-price {
+            display: inline-block;
+            margin: var(--spacing-md) 0;
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--color-primary);
+        }
+
+        .events-carousel-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-lg);
+        }
+
+        .events-carousel-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+
+        .events-carousel-buttons {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .events-carousel-btn {
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(201, 169, 98, 0.24);
+            border-radius: 50%;
+            background-color: transparent;
+            color: var(--color-light);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .events-carousel-btn:hover:not(:disabled) {
+            border-color: var(--color-primary);
+            background-color: rgba(201, 169, 98, 0.12);
+        }
+
+        .events-carousel-btn:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        .events-carousel-dots {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .events-carousel-dot {
+            width: 10px;
+            height: 10px;
+            border: none;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .events-carousel-dot.active {
+            width: 34px;
+            border-radius: 999px;
+            background-color: var(--color-primary);
+        }
+
+        .events-carousel-status {
+            margin-top: var(--spacing-md);
+            color: var(--color-gray-light);
+            font-size: 0.875rem;
+        }
+
+        .events-carousel-state {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: var(--spacing-md);
+            min-height: 440px;
+            padding: var(--spacing-xl);
+            text-align: center;
+            color: var(--color-gray-light);
             background-color: var(--color-dark-soft);
-            z-index: 1;
-            transition: opacity 0.3s ease;
+            border-radius: 20px;
         }
-        
-        .iframe-loading.hidden {
-            opacity: 0;
-            pointer-events: none;
+
+        .events-carousel-state[hidden],
+        .events-carousel-track[hidden],
+        .events-carousel-controls[hidden] {
+            display: none !important;
         }
-        
-        .iframe-spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid var(--color-gray-dark);
+
+        .events-carousel-spinner {
+            width: 56px;
+            height: 56px;
+            border: 3px solid rgba(255, 255, 255, 0.08);
             border-top-color: var(--color-primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin-bottom: var(--spacing-md);
         }
         
         @keyframes spin {
             to { transform: rotate(360deg); }
-        }
-        
-        .iframe-loading p {
-            color: var(--color-gray-light);
-        }
-        
-        .events-iframe {
-            width: 100%;
-            min-height: 800px;
-            border: none;
-            display: block;
-        }
-        
-        .iframe-error {
-            display: none;
-            text-align: center;
-            padding: var(--spacing-3xl);
-        }
-        
-        .iframe-error.active {
-            display: block;
-        }
-        
-        .iframe-error-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto var(--spacing-lg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: rgba(201, 169, 98, 0.1);
-            border-radius: 50%;
-        }
-        
-        .iframe-error-icon svg {
-            color: var(--color-primary);
-        }
-        
-        .iframe-error h3 {
-            color: var(--color-light);
-            margin-bottom: var(--spacing-sm);
-        }
-        
-        .iframe-error p {
-            color: var(--color-gray-light);
-            margin-bottom: var(--spacing-lg);
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .iframe-error .btn {
-            margin: 0 var(--spacing-xs);
         }
         
         .events-note {
@@ -246,15 +393,15 @@
             margin-bottom: var(--spacing-md);
         }
         
-        @media (min-width: 768px) {
-            .events-grid {
-                grid-template-columns: repeat(2, 1fr);
+        @media (min-width: 900px) {
+            .events-carousel-card {
+                grid-template-columns: minmax(280px, 0.9fr) 1.1fr;
             }
         }
-        
-        @media (min-width: 1024px) {
-            .events-grid {
-                grid-template-columns: repeat(3, 1fr);
+
+        @media (max-width: 767px) {
+            .events-carousel-controls {
+                flex-direction: column-reverse;
             }
         }
     </style>
@@ -304,51 +451,45 @@
     <section class="events-page">
         <div class="container">
             <div class="events-intro">
-                <h2>Calendario de Visitas</h2>
-                <p>Selecciona la fecha y tipo de visita que prefieras. Las entradas se gestionan a traves de nuestra plataforma de venta triocio.com</p>
+                <h2>Eventos en tiempo real</h2>
+                <p>Este carrusel se alimenta automaticamente desde triocio.com y se actualiza con una tarea programada para reflejar cambios en disponibilidad y fechas.</p>
             </div>
             
-            <!-- Iframe Container -->
-            <div class="iframe-container" id="iframeContainer">
-                <div class="iframe-loading" id="iframeLoading">
-                    <div class="iframe-spinner"></div>
-                    <p>Cargando eventos...</p>
+            <div class="events-carousel-shell" id="eventsCarouselApp" data-events-endpoint="/api/events">
+                <div class="events-carousel-header">
+                    <span class="events-live-badge">Sincronizado con Triocio</span>
+                    <p>Consulta los proximos eventos sin salir de la web. Si Triocio publica cambios, el cron job refresca esta seccion automaticamente.</p>
                 </div>
-                
-                <iframe 
-                    id="eventsIframe"
-                    class="events-iframe" 
-                    src="https://triocio.com/catacumbas-del-beaterio/"
-                    title="Eventos Catacumbas del Beaterio"
-                    loading="lazy"
-                    onload="iframeLoaded()"
-                    onerror="iframeError()">
-                </iframe>
-                
-                <!-- Error message if iframe blocked -->
-                <div class="iframe-error" id="iframeError">
-                    <div class="iframe-error-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="12" y1="8" x2="12" y2="12"></line>
-                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                        </svg>
+
+                <div class="events-carousel-stage" id="eventsCarouselStage">
+                    <div class="events-carousel-state" id="eventsCarouselState">
+                        <div class="events-carousel-spinner"></div>
+                        <p>Cargando eventos desde Triocio...</p>
                     </div>
-                    <h3>No se puede cargar el contenido</h3>
-                    <p>Por razones de seguridad, el contenido de triocio.com no puede mostrarse directamente en esta pagina. Puedes acceder a los eventos haciendo clic en el boton de abajo.</p>
-                    <a href="https://triocio.com/catacumbas-del-beaterio/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                        Ver Eventos en Triocio
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                            <polyline points="15 3 21 3 21 9"></polyline>
-                            <line x1="10" y1="14" x2="21" y2="3"></line>
-                        </svg>
-                    </a>
+                    <div class="events-carousel-track" id="eventsCarouselTrack" hidden></div>
                 </div>
+
+                <div class="events-carousel-controls" id="eventsCarouselControls" hidden>
+                    <div class="events-carousel-buttons">
+                        <button type="button" class="events-carousel-btn" id="eventsPrev" aria-label="Evento anterior">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m15 18-6-6 6-6"></path>
+                            </svg>
+                        </button>
+                        <button type="button" class="events-carousel-btn" id="eventsNext" aria-label="Siguiente evento">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m9 18 6-6-6-6"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="events-carousel-dots" id="eventsCarouselDots"></div>
+                </div>
+
+                <p class="events-carousel-status" id="eventsCarouselStatus">Esperando datos...</p>
             </div>
             
             <div class="events-note">
-                <p>Las entradas se venden a traves de <a href="https://triocio.com/catacumbas-del-beaterio/" target="_blank" rel="noopener noreferrer">triocio.com</a>. Si tienes problemas para visualizar el calendario, <a href="https://triocio.com/catacumbas-del-beaterio/" target="_blank" rel="noopener noreferrer">haz clic aqui para acceder directamente</a>.</p>
+                <p>Las entradas se venden a traves de <a href="https://triocio.com/catacumbas-del-beaterio/" target="_blank" rel="noopener noreferrer">triocio.com</a>. Si prefieres completar la compra alli, <a href="https://triocio.com/catacumbas-del-beaterio/" target="_blank" rel="noopener noreferrer">haz clic aqui para abrir Triocio directamente</a>.</p>
             </div>
         </div>
     </section>
@@ -454,57 +595,5 @@
     </footer>
 
     <script src="script.js"></script>
-    <script>
-        // Iframe load handling
-        let iframeLoadTimeout;
-        
-        function iframeLoaded() {
-            const loading = document.getElementById('iframeLoading');
-            if (loading) {
-                loading.classList.add('hidden');
-            }
-            clearTimeout(iframeLoadTimeout);
-        }
-        
-        function iframeError() {
-            showIframeError();
-        }
-        
-        function showIframeError() {
-            const loading = document.getElementById('iframeLoading');
-            const error = document.getElementById('iframeError');
-            const iframe = document.getElementById('eventsIframe');
-            
-            if (loading) loading.classList.add('hidden');
-            if (iframe) iframe.style.display = 'none';
-            if (error) error.classList.add('active');
-        }
-        
-        // Check if iframe loaded after timeout (fallback for X-Frame-Options block)
-        iframeLoadTimeout = setTimeout(function() {
-            const iframe = document.getElementById('eventsIframe');
-            const loading = document.getElementById('iframeLoading');
-            
-            // If still showing loading after 8 seconds, assume blocked
-            if (loading && !loading.classList.contains('hidden')) {
-                showIframeError();
-            }
-        }, 8000);
-        
-        // Try to detect if iframe is blocked (this may not work due to CORS)
-        const iframe = document.getElementById('eventsIframe');
-        if (iframe) {
-            iframe.addEventListener('load', function() {
-                try {
-                    // This will throw if blocked by X-Frame-Options
-                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                    iframeLoaded();
-                } catch (e) {
-                    // Iframe is blocked
-                    showIframeError();
-                }
-            });
-        }
-    </script>
 </body>
 </html>

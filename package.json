@@ -1,0 +1,14 @@
+{
+  "name": "catacumbas-del-beaterio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "scrape:events": "node triocio-scraper.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "node-cron": "^4.2.1",
+    "puppeteer": "^24.43.1"
+  }
+}
