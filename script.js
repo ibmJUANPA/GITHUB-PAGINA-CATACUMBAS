@@ -345,7 +345,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const eventsApp = document.getElementById('eventsCarouselApp');
 
     if (eventsApp) {
-        const endpoint = eventsApp.getAttribute('data-events-endpoint') || '/api/events';
+        const endpoint = eventsApp.getAttribute('data-events-endpoint') || './data/events.json';
         const localEventFallbackImage = 'img/1624829075563-1536x1149.jpg';
         const stage = document.getElementById('eventsCarouselStage');
         const state = document.getElementById('eventsCarouselState');
