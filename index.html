@@ -9,6 +9,216 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ── Carrusel de Eventos (home) ── */
+        .home-events {
+            padding: var(--spacing-2xl) 0;
+            background-color: var(--color-dark);
+        }
+
+        .home-events .section-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .events-carousel-shell {
+            background: linear-gradient(180deg, rgba(26,26,26,.95) 0%, rgba(13,13,13,.95) 100%);
+            border: 1px solid rgba(201,169,98,.18);
+            border-radius: 24px;
+            padding: clamp(1.25rem,3vw,2rem);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .events-carousel-header {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .events-carousel-header p {
+            color: var(--color-gray-light);
+            margin: 0;
+        }
+
+        .events-live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            width: fit-content;
+            padding: .5rem .875rem;
+            border-radius: 999px;
+            background-color: rgba(201,169,98,.14);
+            color: var(--color-primary-light);
+            font-size: .75rem;
+            font-weight: 600;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+        }
+
+        .events-live-badge::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #63d471;
+            box-shadow: 0 0 0 6px rgba(99,212,113,.15);
+        }
+
+        .events-carousel-stage {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            min-height: 440px;
+        }
+
+        .events-carousel-track {
+            display: flex;
+            transition: transform .45s ease;
+            will-change: transform;
+        }
+
+        .events-carousel-slide { min-width: 100%; padding: .25rem; }
+
+        .events-carousel-card {
+            display: grid;
+            background-color: var(--color-dark-soft);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.05);
+            min-height: 100%;
+        }
+
+        .events-carousel-visual {
+            min-height: 240px;
+            background: radial-gradient(circle at top, rgba(201,169,98,.16), transparent 55%), var(--color-gray-dark);
+        }
+
+        .events-carousel-visual img { width: 100%; height: 100%; object-fit: cover; }
+
+        .events-carousel-placeholder {
+            width: 100%; height: 100%; min-height: 240px;
+            display: flex; align-items: center; justify-content: center;
+            padding: var(--spacing-lg); text-align: center;
+            color: var(--color-primary-light);
+            font-family: var(--font-heading); font-size: 2rem;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(201,169,98,.22), transparent 28%),
+                radial-gradient(circle at 80% 30%, rgba(223,200,138,.14), transparent 22%),
+                linear-gradient(135deg, rgba(201,169,98,.12), rgba(13,13,13,.9));
+        }
+
+        .events-carousel-content { padding: clamp(1.25rem,3vw,2rem); }
+
+        .events-carousel-meta {
+            display: flex; flex-wrap: wrap; gap: .75rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .events-carousel-pill {
+            display: inline-flex; align-items: center; gap: .5rem;
+            padding: .5rem .875rem; border-radius: 999px;
+            background-color: rgba(245,243,239,.06);
+            color: var(--color-gray-light); font-size: .8rem;
+        }
+
+        .events-carousel-card h3 { color: var(--color-light); margin-bottom: var(--spacing-sm); }
+        .events-carousel-card p  { color: var(--color-gray-light); }
+
+        .events-carousel-price {
+            display: inline-block; margin: var(--spacing-md) 0;
+            font-family: var(--font-heading); font-size: 2rem;
+            color: var(--color-primary);
+        }
+
+        .events-carousel-actions {
+            display: flex; flex-wrap: wrap; gap: var(--spacing-sm);
+            margin-top: var(--spacing-lg);
+        }
+
+        .events-carousel-controls {
+            display: flex; align-items: center;
+            justify-content: space-between;
+            gap: var(--spacing-md); margin-top: var(--spacing-lg);
+        }
+
+        .events-carousel-buttons { display: flex; gap: .75rem; }
+
+        .events-carousel-btn {
+            width: 48px; height: 48px;
+            border: 1px solid rgba(201,169,98,.24);
+            border-radius: 50%; background-color: transparent;
+            color: var(--color-light); cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .events-carousel-btn:hover:not(:disabled) {
+            border-color: var(--color-primary);
+            background-color: rgba(201,169,98,.12);
+        }
+
+        .events-carousel-btn:disabled { opacity: .45; cursor: not-allowed; }
+
+        .events-carousel-dots {
+            display: flex; flex-wrap: wrap; gap: .5rem;
+            justify-content: center; flex: 1;
+        }
+
+        .events-carousel-dot {
+            width: 10px; height: 10px; border: none;
+            border-radius: 50%; background-color: rgba(255,255,255,.2);
+            cursor: pointer; transition: var(--transition);
+        }
+
+        .events-carousel-dot.active {
+            width: 34px; border-radius: 999px;
+            background-color: var(--color-primary);
+        }
+
+        .events-carousel-status {
+            margin-top: var(--spacing-md);
+            color: var(--color-gray-light); font-size: .875rem;
+        }
+
+        .events-carousel-state {
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            gap: var(--spacing-md); min-height: 440px;
+            padding: var(--spacing-xl); text-align: center;
+            color: var(--color-gray-light);
+            background-color: var(--color-dark-soft); border-radius: 20px;
+        }
+
+        .events-carousel-state[hidden],
+        .events-carousel-track[hidden],
+        .events-carousel-controls[hidden] { display: none !important; }
+
+        .events-carousel-spinner {
+            width: 56px; height: 56px;
+            border: 3px solid rgba(255,255,255,.08);
+            border-top-color: var(--color-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .home-events-note {
+            text-align: center; margin-top: var(--spacing-lg);
+        }
+
+        .home-events-note a { color: var(--color-primary); }
+        .home-events-note a:hover { text-decoration: underline; }
+
+        @media (min-width: 900px) {
+            .events-carousel-card { grid-template-columns: minmax(280px,.9fr) 1.1fr; }
+        }
+
+        @media (max-width: 767px) {
+            .events-carousel-controls { flex-direction: column-reverse; }
+        }
+    </style>
 </head>
 <body>
     <!-- Header / Navegación -->
@@ -71,6 +281,50 @@
                     <p><strong>Importante:</strong> Si no recibe sus entradas, revise la carpeta de correo no deseado (SPAM). Grupos mínimo de 3 personas para visita guiada.</p>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Eventos Carousel -->
+    <section class="home-events" id="eventos-home">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Próximos Eventos</span>
+                <h2 class="section-title">Reserva tu experiencia</h2>
+            </div>
+
+            <div class="events-carousel-shell" id="homeEventsCarouselApp" data-events-endpoint="./data/events.json">
+                <div class="events-carousel-header">
+                    <span class="events-live-badge">Sincronizado con Triocio</span>
+                    <p>Consulta los próximos eventos sin salir de la web.</p>
+                </div>
+
+                <div class="events-carousel-stage" id="homeEventsCarouselStage">
+                    <div class="events-carousel-state" id="homeEventsCarouselState">
+                        <div class="events-carousel-spinner"></div>
+                        <p>Cargando eventos desde Triocio...</p>
+                    </div>
+                    <div class="events-carousel-track" id="homeEventsCarouselTrack" hidden></div>
+                </div>
+
+                <div class="events-carousel-controls" id="homeEventsCarouselControls" hidden>
+                    <div class="events-carousel-buttons">
+                        <button type="button" class="events-carousel-btn" id="homePrev" aria-label="Evento anterior">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
+                        </button>
+                        <button type="button" class="events-carousel-btn" id="homeNext" aria-label="Siguiente evento">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
+                        </button>
+                    </div>
+                    <div class="events-carousel-dots" id="homeEventsCarouselDots"></div>
+                </div>
+
+                <p class="events-carousel-status" id="homeEventsCarouselStatus">Esperando datos...</p>
+            </div>
+
+            <p class="home-events-note">
+                Las entradas se venden a través de <a href="https://triocio.com/catacumbas-del-beaterio/" target="_blank" rel="noopener noreferrer">triocio.com</a>.
+                <a href="eventos.html">Ver todos los eventos →</a>
+            </p>
         </div>
     </section>
 
@@ -503,5 +757,110 @@
     </footer>
 
     <script src="script.js"></script>
+
+    <script>
+    /* ── Carrusel de Eventos – Home ── */
+    (function () {
+        const ENDPOINT = './data/events.json';
+
+        const stage    = document.getElementById('homeEventsCarouselStage');
+        const state    = document.getElementById('homeEventsCarouselState');
+        const track    = document.getElementById('homeEventsCarouselTrack');
+        const controls = document.getElementById('homeEventsCarouselControls');
+        const dotsWrap = document.getElementById('homeEventsCarouselDots');
+        const status   = document.getElementById('homeEventsCarouselStatus');
+        const btnPrev  = document.getElementById('homePrev');
+        const btnNext  = document.getElementById('homeNext');
+
+        if (!stage) return;
+
+        let current = 0;
+        let events  = [];
+
+        function goTo(index) {
+            current = Math.max(0, Math.min(index, events.length - 1));
+            track.style.transform = `translateX(-${current * 100}%)`;
+            document.querySelectorAll('#homeEventsCarouselDots .events-carousel-dot')
+                .forEach((d, i) => d.classList.toggle('active', i === current));
+            btnPrev.disabled = current === 0;
+            btnNext.disabled = current === events.length - 1;
+            status.textContent = `Evento ${current + 1} de ${events.length}`;
+        }
+
+        function buildSlide(ev) {
+            const slide = document.createElement('div');
+            slide.className = 'events-carousel-slide';
+
+            const imgHTML = ev.image
+                ? `<div class="events-carousel-visual"><img src="${ev.image}" alt="${ev.title}" loading="lazy"></div>`
+                : `<div class="events-carousel-visual"><div class="events-carousel-placeholder">${ev.title}</div></div>`;
+
+            const pills = [
+                ev.date   ? `<span class="events-carousel-pill">📅 ${ev.date}</span>` : '',
+                ev.time   ? `<span class="events-carousel-pill">🕐 ${ev.time}</span>` : '',
+                ev.location ? `<span class="events-carousel-pill">📍 ${ev.location}</span>` : '',
+            ].filter(Boolean).join('');
+
+            const price = ev.price
+                ? `<span class="events-carousel-price">${ev.price}</span>` : '';
+
+            const cta = ev.url
+                ? `<a href="${ev.url}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Comprar entradas</a>` : '';
+
+            slide.innerHTML = `
+                <div class="events-carousel-card">
+                    ${imgHTML}
+                    <div class="events-carousel-content">
+                        <div class="events-carousel-meta">${pills}</div>
+                        <h3>${ev.title}</h3>
+                        <p>${ev.description || ''}</p>
+                        ${price}
+                        <div class="events-carousel-actions">${cta}</div>
+                    </div>
+                </div>`;
+            return slide;
+        }
+
+        function buildDot(i) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'events-carousel-dot' + (i === 0 ? ' active' : '');
+            btn.setAttribute('aria-label', `Ir al evento ${i + 1}`);
+            btn.addEventListener('click', () => goTo(i));
+            return btn;
+        }
+
+        function render(data) {
+            events = data;
+            track.innerHTML = '';
+            dotsWrap.innerHTML = '';
+
+            events.forEach((ev, i) => {
+                track.appendChild(buildSlide(ev));
+                dotsWrap.appendChild(buildDot(i));
+            });
+
+            state.hidden    = true;
+            track.hidden    = false;
+            controls.hidden = false;
+            goTo(0);
+        }
+
+        function showError(msg) {
+            state.innerHTML = `<p>⚠️ ${msg}</p>`;
+        }
+
+        btnPrev.addEventListener('click', () => goTo(current - 1));
+        btnNext.addEventListener('click', () => goTo(current + 1));
+
+        fetch(ENDPOINT)
+            .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+            .then(data => {
+                if (!Array.isArray(data) || !data.length) throw new Error('Sin eventos disponibles.');
+                render(data);
+            })
+            .catch(err => showError(err.message));
+    })();
+    </script>
 </body>
 </html>
