@@ -1,42 +1,22 @@
 {
-  "updatedAt": "2026-05-13T16:00:27.089Z",
+  "updatedAt": "2026-05-14T16:00:23.659Z",
   "source": "https://triocio.com/catacumbas-del-beaterio/",
   "events": [
     {
-      "id": "catacumbas-del-beaterio-abril-visita-libre-mie-29-de-abril-de-2026-10-30",
-      "title": "Catacumbas del Beaterio Abril(Visita Libre)",
-      "dateText": "mié, 29 de abril de 2026, 10:30",
-      "startsAt": "2026-04-29T08:30:00.000Z",
-      "price": "3.00",
-      "location": "Cadiz",
-      "image": "https://triocio.com/wp-content/uploads/2024/07/IMG-20160316-WA0002.jpg",
-      "url": "https://triocio.com/Acontecimiento/catacumbas-del-beaterio-marzovisita-libre-2/"
-    },
-    {
-      "id": "catacumbas-del-beaterio-abril-visita-guiada-mie-29-de-abril-de-2026-13-00",
-      "title": "Catacumbas del Beaterio Abril(Visita Guiada)",
-      "dateText": "mié, 29 de abril de 2026, 13:00",
-      "startsAt": "2026-04-29T11:00:00.000Z",
-      "price": "5.00",
-      "location": "Cadiz",
-      "image": "https://triocio.com/wp-content/uploads/2024/07/IMG-20160316-WA0002.jpg",
-      "url": "https://triocio.com/Acontecimiento/catacumbas-del-beaterio-marzovisita-guiada-2/"
-    },
-    {
-      "id": "catacumbas-del-beaterio-mayo-visita-libre-mie-13-de-mayo-de-2026-10-30",
+      "id": "catacumbas-del-beaterio-mayo-visita-libre-jue-14-de-mayo-de-2026-10-30",
       "title": "Catacumbas del Beaterio Mayo(Visita Libre)",
-      "dateText": "mié, 13 de mayo de 2026, 10:30",
-      "startsAt": "2026-05-13T08:30:00.000Z",
+      "dateText": "jue, 14 de mayo de 2026, 10:30",
+      "startsAt": "2026-05-14T08:30:00.000Z",
       "price": "3.00",
       "location": "Cadiz",
       "image": "https://triocio.com/wp-content/uploads/2024/07/IMG-20160316-WA0002.jpg",
       "url": "https://triocio.com/Acontecimiento/catacumbas-del-beaterio-abrilvisita-libre-2/"
     },
     {
-      "id": "catacumbas-del-beaterio-mayo-visita-guiada-mie-13-de-mayo-de-2026-13-00",
+      "id": "catacumbas-del-beaterio-mayo-visita-guiada-jue-14-de-mayo-de-2026-13-00",
       "title": "Catacumbas del Beaterio Mayo(Visita Guiada)",
-      "dateText": "mié, 13 de mayo de 2026, 13:00",
-      "startsAt": "2026-05-13T11:00:00.000Z",
+      "dateText": "jue, 14 de mayo de 2026, 13:00",
+      "startsAt": "2026-05-14T11:00:00.000Z",
       "price": "5.00",
       "location": "Cadiz",
       "image": "https://triocio.com/wp-content/uploads/2024/07/IMG-20160316-WA0002.jpg",
